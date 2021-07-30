@@ -16,8 +16,10 @@ public abstract class SlashCommand extends CommandData {
         this.description = description;
         if (type == Type.ADMIN) {
             setDefaultEnabled(false);
+            // TODO: set privileges for admin roles
         } else if (type == Type.MOD) {
             setDefaultEnabled(false);
+            // TODO: set privileges for mod and admin roles
         } else if (type == Type.PUBLIC) {
             setDefaultEnabled(true);
         }
