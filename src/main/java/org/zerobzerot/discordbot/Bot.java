@@ -14,9 +14,12 @@ public class Bot {
 
     public Bot(Config config) {
         final JDA jda;
+
+        // build jda
         try {
             jda = JDABuilder
                 .createDefault(config.getToken())
+                // the things that are commented out are the things we do not disable!
                 .disableCache( // https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/api/utils/cache/CacheFlag.html
                     CacheFlag.ACTIVITY,                     // getActivities()
                     CacheFlag.CLIENT_STATUS,                // getOnlineStatus()
@@ -37,11 +40,15 @@ public class Bot {
                     GatewayIntent.DIRECT_MESSAGE_REACTIONS, // This is used to track reactions on messages in private channels (DMs).
                     GatewayIntent.DIRECT_MESSAGE_TYPING     // This is used to track when a user starts typing in private channels (DMs). Almost no bot will have a use for this.
                 ).build();
-            jda.awaitReady();
         } catch (LoginException e) {
             Logger.error("JDA login failed: " + e.getMessage());
             System.exit(1);
             return;
+        }
+
+        // await ready
+        try {
+            jda.awaitReady();
         } catch (InterruptedException e) {
             e.printStackTrace();
             Logger.error("JDA init failed: " + e.getMessage());
