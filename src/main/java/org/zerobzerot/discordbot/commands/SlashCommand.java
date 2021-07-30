@@ -1,7 +1,10 @@
 package org.zerobzerot.discordbot.commands;
 
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
 import org.zerobzerot.discordbot.Config;
@@ -28,6 +31,17 @@ public abstract class SlashCommand extends CommandData {
         } else if (type == Type.PUBLIC) {
             setDefaultEnabled(true);
         }
+    }
+
+    static void sendReply(SlashCommandEvent event, Message reply) {
+        final ReplyAction action;
+        try {
+            action = event.reply(reply);
+        } catch (InsufficientPermissionException | UnsupportedOperationException | IllegalArgumentException ex) {
+            Logger.warn(ex.getMessage());
+            return;
+        }
+        action.queue();
     }
 
     public void run(SlashCommandEvent event) {

@@ -2,14 +2,12 @@ package org.zerobzerot.discordbot.commands;
 
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.exceptions.HierarchyException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
-import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 import org.tinylog.Logger;
 
 public class KickCommand extends SlashCommand {
@@ -30,7 +28,8 @@ public class KickCommand extends SlashCommand {
             sendReply(event, new MessageBuilder().append("I have no idea who you are talking about...").build());
             return;
         }
-        // Check if user is in server present
+
+        // Check if user is member in server
         final Member member = user.getAsMember();
         if (member == null) {
             // This should never happen because the discord client restricts input to existing users only
@@ -56,17 +55,6 @@ public class KickCommand extends SlashCommand {
         try {
             action = member.kick(message);
         } catch (InsufficientPermissionException | HierarchyException | IllegalArgumentException ex) {
-            Logger.warn(ex.getMessage());
-            return;
-        }
-        action.queue();
-    }
-
-    private void sendReply(SlashCommandEvent event, Message reply) {
-        final ReplyAction action;
-        try {
-            action = event.reply(reply);
-        } catch (InsufficientPermissionException | UnsupportedOperationException | IllegalArgumentException ex) {
             Logger.warn(ex.getMessage());
             return;
         }
