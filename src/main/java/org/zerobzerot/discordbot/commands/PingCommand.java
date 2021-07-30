@@ -29,6 +29,8 @@ public class PingCommand extends SlashCommand {
                     .append(user.getAsMember().getAsMention())
                     .build();
             } else {
+                // this should never happen because the discord client restricts input to existing users only
+                // but this can probably be bypassed when sending with custom clients, so we should account for it.
                 reply = new MessageBuilder()
                     .append("I have never seen ")
                     .append(String.valueOf(user.getAsMentionable()))

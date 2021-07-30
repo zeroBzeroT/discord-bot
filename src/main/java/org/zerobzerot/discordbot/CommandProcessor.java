@@ -25,7 +25,7 @@ public class CommandProcessor extends ListenerAdapter {
     }
 
     private void register(PingCommand command) {
-        Logger.debug("Registering slash command " + command.name);
+        Logger.debug("Registering slash command: \"" + command.name + "\"");
         commands.put(command.name, command);
         jda.upsertCommand(command).queue();
     }
