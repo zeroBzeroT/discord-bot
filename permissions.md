@@ -10,6 +10,6 @@ Permissions: `126022 = 0x2 | 0x4 | 0x40 | 0x400 | 0x800 | 0x2000 | 0x4000 | 0x80
 0x8000 -> `attach files`  
 0x10000 -> `read message history`
 
-Invite:  `https://discord.com/oauth2/authorize?client_id=<BOT CLIENT ID>&scope=bot&permissions=126022`
+Invite:  `https://discord.com/oauth2/authorize?client_id=<BOT CLIENT ID>&scope=bot%20applications.commands&permissions=126022`
 
 (where <BOT CLIENT ID> is the bots 18 digit snowflake id)
