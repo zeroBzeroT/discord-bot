@@ -15,7 +15,7 @@ import org.tinylog.Logger;
 public class KickCommand extends SlashCommand {
 
     public KickCommand() {
-        super("kick", "kick someone");
+        super("kick", "kick someone", Type.MOD);
         addOption(OptionType.USER, "user", "who to kick", true);
         addOption(OptionType.STRING, "reason", "reason for kick", false);
     }

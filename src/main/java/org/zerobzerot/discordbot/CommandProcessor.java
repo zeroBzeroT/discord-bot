@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
+import org.zerobzerot.discordbot.commands.KickCommand;
 import org.zerobzerot.discordbot.commands.PingCommand;
 import org.zerobzerot.discordbot.commands.SlashCommand;
 
@@ -21,10 +22,11 @@ public class CommandProcessor extends ListenerAdapter {
         this.jda = jda;
         this.commands = new HashMap<>();
         register(new PingCommand());
+        register(new KickCommand());
         Logger.info("Global commands can take up to 1 hour to propagate to the clients \uD83D\uDE48");
     }
 
-    private void register(PingCommand command) {
+    private void register(SlashCommand command) {
         Logger.debug("Registering slash command: \"" + command.name + "\"");
         commands.put(command.name, command);
         jda.upsertCommand(command).queue();

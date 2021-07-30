@@ -13,7 +13,7 @@ import org.tinylog.Logger;
 public class PingCommand extends SlashCommand {
 
     public PingCommand() {
-        super("ping", "play ping pong");
+        super("ping", "play ping pong", Type.PUBLIC);
         addOption(OptionType.USER, "user", "who to play with", false);
     }
 
