@@ -1,5 +1,6 @@
 package org.zerobzerot.discordbot;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -11,7 +12,10 @@ import java.nio.file.Path;
  */
 public class Config {
 
+    @JsonProperty("bot-id")
     private long botId;
+
+    @JsonProperty("token")
     private String token;
 
     private Config() {
