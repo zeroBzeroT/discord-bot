@@ -4,20 +4,16 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.tinylog.Logger;
 
 import javax.security.auth.login.LoginException;
 
-public class Bot extends ListenerAdapter {
-
-    private final Config config;
+public class Bot {
 
     public Bot(Config config) {
-        this.config = config;
-        JDA jda;
+        final JDA jda;
         try {
             jda = JDABuilder
                 .createDefault(config.getToken())
@@ -40,8 +36,7 @@ public class Bot extends ListenerAdapter {
                     // GatewayIntent.DIRECT_MESSAGES,       // This is used to receive incoming messages in private channels (DMs). You can still send private messages without this intent.
                     GatewayIntent.DIRECT_MESSAGE_REACTIONS, // This is used to track reactions on messages in private channels (DMs).
                     GatewayIntent.DIRECT_MESSAGE_TYPING     // This is used to track when a user starts typing in private channels (DMs). Almost no bot will have a use for this.
-                ).addEventListeners(this)
-                .build();
+                ).build();
             jda.awaitReady();
         } catch (LoginException e) {
             Logger.error("JDA login failed: " + e.getMessage());
@@ -53,7 +48,14 @@ public class Bot extends ListenerAdapter {
             System.exit(1);
             return;
         }
-        jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.watching("\uD83E\uDD13️"));
+
+        // initialize commands
+        jda.addEventListener(new CommandProcessor(jda));
+
+        // set presence
+        jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.competing("\uD83E\uDD13️"));
+
+        Logger.info(jda.getSelfUser().getName() + " (" + jda.getSelfUser().getApplicationId() + ") is ready!");
     }
 
 }
