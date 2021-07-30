@@ -34,10 +34,10 @@ public class Bot extends ListenerAdapter {
                     GatewayIntent.GUILD_INVITES,            // This will only track invite create/delete. Most bots don't make use of invites since they are added through OAuth2 authorization by administrators.
                     GatewayIntent.GUILD_VOICE_STATES,       // Required to properly get information of members in voice channels and cache them. You cannot connect to a voice channel without this intent.
                     GatewayIntent.GUILD_PRESENCES,          // This is a privileged gateway intent this is only used to track activity and online-status of a user.
-                    // GatewayIntent.GUILD_MESSAGES,           // This is used to receive incoming messages in guilds (servers), most bots will need this for commands.
+                    // GatewayIntent.GUILD_MESSAGES,        // This is used to receive incoming messages in guilds (servers), most bots will need this for commands.
                     GatewayIntent.GUILD_MESSAGE_REACTIONS,  // This is used to track reactions on messages in guilds (servers). Can be useful to make a paginated embed or reaction role management.
                     GatewayIntent.GUILD_MESSAGE_TYPING,     // This is used to track when a user starts typing in guilds (servers). Almost no bot will have a use for this.
-                    // GatewayIntent.DIRECT_MESSAGES,          // This is used to receive incoming messages in private channels (DMs). You can still send private messages without this intent.
+                    // GatewayIntent.DIRECT_MESSAGES,       // This is used to receive incoming messages in private channels (DMs). You can still send private messages without this intent.
                     GatewayIntent.DIRECT_MESSAGE_REACTIONS, // This is used to track reactions on messages in private channels (DMs).
                     GatewayIntent.DIRECT_MESSAGE_TYPING     // This is used to track when a user starts typing in private channels (DMs). Almost no bot will have a use for this.
                 ).addEventListeners(this)
