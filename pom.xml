@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.zerobzerot.discordbot</groupId>
+  <artifactId>discord-bot</artifactId>
+  <version>0.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>${project.artifactId}</name>
+  <description>0b0t discord bot</description>
+  <url>https://github.com/zeroBzeroT/discord-bot</url>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://www.opensource.org/licenses/mit-license.php</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git://github.com/zeroBzeroT/discord-bot.git</connection>
+    <developerConnection>scm:git:ssh://github.com/zeroBzeroT/discord-bot.git</developerConnection>
+    <url>https://github.com/zeroBzeroT/discord-bot</url>
+  </scm>
+
+  <properties>
+    <java.version>16</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <defaultGoal>clean verify</defaultGoal>
+    <plugins>
+      <plugin>
+        <!-- require maven 3, java 16, check for common dependency problems -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-rules</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <!-- https://maven.apache.org/enforcer/enforcer-rules/index.html -->
+                <requireMavenVersion>
+                  <version>[3,)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>[16,)</version>
+                </requireJavaVersion>
+                <banDuplicatePomDependencyVersions/>
+                <dependencyConvergence/>
+                <requireReleaseDeps/>
+                <requireUpperBoundDeps/>
+              </rules>
+              <fail>true</fail>
+              <failFast>true</failFast>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- compile sources -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- create application jar with dependencies -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.zerobzerot.discordbot.Main</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <!-- replace original jar with dependency included jar -->
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- run tests -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+        </plugins>
+        <resources>
+          <resource>
+            <directory>.</directory>
+            <filtering>true</filtering>
+            <includes>
+              <include>LICENSE</include>
+            </includes>
+          </resource>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <excludes>
+              <!-- exclude development config for tinylog (dont show debug logging in release) -->
+              <exclude>tinylog-dev.properties</exclude>
+            </excludes>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+  </profiles>
+
+  <repositories>
+    <repository>
+      <id>dv8tion</id>
+      <name>m2-dv8tion</name>
+      <url>https://m2.dv8tion.net/releases</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <!-- https://github.com/DV8FromTheWorld/JDA -->
+    <!-- discord -->
+    <dependency>
+      <groupId>net.dv8tion</groupId>
+      <artifactId>JDA</artifactId>
+      <version>4.3.0_277</version>
+      <exclusions>
+        <!-- we dont need audio support -->
+        <exclusion>
+          <groupId>club.minnced</groupId>
+          <artifactId>opus-java</artifactId>
+        </exclusion>
+        <!-- all these things are included by other dependencies in more recent versions
+         TODO: shade all dependencies to their own namespace instead? -->
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>animal-sniffer-annotations</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- https://github.com/redis/jedis -->
+    <!-- redis -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>3.6.3</version>
+    </dependency>
+    <!-- dev annotations -->
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>21.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- logging -->
+    <dependency>
+      <groupId>org.tinylog</groupId>
+      <artifactId>tinylog-api</artifactId>
+      <version>2.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.tinylog</groupId>
+      <artifactId>tinylog-impl</artifactId>
+      <version>2.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.tinylog</groupId>
+      <artifactId>slf4j-tinylog</artifactId>
+      <version>2.3.2</version>
+    </dependency>
+    <!-- test scope -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.7.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>

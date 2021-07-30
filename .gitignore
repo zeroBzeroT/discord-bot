@@ -1,0 +1,21 @@
+# ignore all files
+*
+# but include directories
+!*/
+
+# git
+!/**/.gitkeep
+!/.gitignore
+
+# java
+!/src/**
+
+# maven
+!/.mvn/**
+!/**/pom.xml
+
+# misc
+!/.github/**
+!/*.md
+!/.editorconfig
+!/LICENSE
