@@ -18,7 +18,7 @@ public class Bot {
         // build jda
         try {
             jda = JDABuilder
-                .createDefault(config.getToken())
+                .createDefault(config.token)
                 // the things that are commented out are the things we do not disable!
                 .disableCache( // https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/api/utils/cache/CacheFlag.html
                     CacheFlag.ACTIVITY,                     // getActivities()
