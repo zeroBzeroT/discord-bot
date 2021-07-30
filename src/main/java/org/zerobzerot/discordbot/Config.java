@@ -11,6 +11,7 @@ import java.nio.file.Path;
  */
 public class Config {
 
+    private long botId;
     private String token;
 
     private Config() {
@@ -24,6 +25,14 @@ public class Config {
             throw new IllegalArgumentException("Unable to load config file at " + path + " because: " + e.getMessage());
         }
         return config;
+    }
+
+    public long getBotId() {
+        return botId;
+    }
+
+    public void setBotId(long botId) {
+        this.botId = botId;
     }
 
     public String getToken() {
