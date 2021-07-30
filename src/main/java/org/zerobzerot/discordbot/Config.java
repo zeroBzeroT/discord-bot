@@ -18,22 +18,27 @@ public class Config {
 
     private static final Path path = Path.of("config.yml");
 
+    // TODO: replace with enum singleton
+    private static Config instance;
+
     @JsonProperty("token")
-    String token;
+    public String token;
 
     @JsonProperty("roles-admins")
-    Set<Long> adminRoleIds;
+    public Set<Long> adminRoleIds;
 
     @JsonProperty("roles-mods")
-    Set<Long> modRoleIds;
+    public Set<Long> modRoleIds;
 
     @JsonProperty("channel-logs")
-    long logChannelId;
+    public long logChannelId;
 
     private Config() {
     }
 
-    static Config load() {
+    public static Config getInstance() {
+        if (instance != null) return instance;
+
         File file = path.toFile();
         if (file.isDirectory()) throw new IllegalStateException(path + " is a directory!");
         if (!file.exists()) {
@@ -52,7 +57,8 @@ public class Config {
         } catch (IOException | UnsupportedOperationException e) {
             throw new IllegalArgumentException("Unable to load config file at " + path + " because: " + e.getMessage());
         }
-        return config;
+        instance = config;
+        return instance;
     }
 
 }

@@ -4,6 +4,9 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
+import org.zerobzerot.discordbot.Config;
+
+import java.util.stream.Collectors;
 
 public abstract class SlashCommand extends CommandData {
 
@@ -17,9 +20,11 @@ public abstract class SlashCommand extends CommandData {
         if (type == Type.ADMIN) {
             setDefaultEnabled(false);
             // TODO: set privileges for admin roles
+            Logger.debug(Config.getInstance().adminRoleIds.stream().map(String::valueOf).collect(Collectors.joining(", ")));
         } else if (type == Type.MOD) {
             setDefaultEnabled(false);
             // TODO: set privileges for mod and admin roles
+            Logger.debug(Config.getInstance().modRoleIds.stream().map(String::valueOf).collect(Collectors.joining(", ")));
         } else if (type == Type.PUBLIC) {
             setDefaultEnabled(true);
         }
