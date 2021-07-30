@@ -162,6 +162,10 @@
         <!-- all these things are included by other dependencies in more recent versions
          TODO: shade all dependencies to their own namespace instead? -->
         <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+        <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
         </exclusion>
