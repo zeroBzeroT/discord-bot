@@ -13,9 +13,8 @@ import javax.security.auth.login.LoginException;
 public class Bot {
 
     public Bot(Config config) {
-        final JDA jda;
-
         // build jda
+        final JDA jda;
         try {
             jda = JDABuilder
                 .createDefault(config.token)
