@@ -21,9 +21,11 @@ public class CommandProcessor extends ListenerAdapter {
         this.jda = jda;
         this.commands = new HashMap<>();
         register(new PingCommand());
+        Logger.info("Global commands can take up to 1 hour to propagate to the clients \uD83D\uDE48");
     }
 
     private void register(PingCommand command) {
+        Logger.debug("Registering slash command " + command.name);
         commands.put(command.name, command);
         jda.upsertCommand(command).queue();
     }
