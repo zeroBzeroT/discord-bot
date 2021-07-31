@@ -8,14 +8,17 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.tinylog.Logger;
 import org.zerobzerot.discordbot.config.Config;
+import org.zerobzerot.discordbot.scheduling.Scheduler;
 
 import javax.security.auth.login.LoginException;
 
 public class Bot {
 
+    private JDA jda;
+    private Scheduler scheduler;
+
     public Bot(Config config) {
         // build jda
-        final JDA jda;
         try {
             jda = JDABuilder
                 .createDefault(config.token)
@@ -58,6 +61,10 @@ public class Bot {
 
         // initialize commands
         jda.addEventListener(new CommandProcessor(jda));
+
+        // initialize scheduler
+        scheduler = Scheduler.load();
+        scheduler.start();
 
         // set presence
         jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.competing(Emojis.NERD.toString()));
