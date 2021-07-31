@@ -2,7 +2,6 @@ package org.zerobzerot.discordbot.commands;
 
 import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.tinylog.Logger;
 
@@ -15,14 +14,14 @@ public class ClearCommand extends SlashCommand {
 
     @Override
     public void run(SlashCommandEvent event) {
-        OptionMapping option = event.getOption("amount");
+        var amountOption = event.getOption("amount");
         // Check if option is present
-        if (option == null) {
+        if (amountOption == null) {
             // Send warning reply
             event.reply("Required option not specified \uD83E\uDD28").setEphemeral(false).queue();
             return;
         }
-        var amount = (int) option.getAsLong();
+        var amount = (int) amountOption.getAsLong();
         if (amount > 100) amount = 100;
         // Clear history
         event.reply("Clearing last " + amount + " messages...").setEphemeral(true).queue();

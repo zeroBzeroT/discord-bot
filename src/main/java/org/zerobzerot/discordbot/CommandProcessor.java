@@ -39,7 +39,7 @@ public class CommandProcessor extends ListenerAdapter {
 
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent event) {
-        SlashCommand command = commands.get(event.getName());
+        var command = commands.get(event.getName());
         if (command == null) {
             Logger.warn("Command " + event.getName() + " was invoked but was not registered!");
             event.reply("Command " + event.getName() + " not found!").queue();

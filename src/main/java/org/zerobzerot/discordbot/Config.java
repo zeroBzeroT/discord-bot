@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
@@ -51,10 +49,10 @@ public class Config {
             return instance;
         }
 
-        File file = path.toFile();
+        var file = path.toFile();
         if (file.isDirectory()) throw new IllegalStateException(path + " is a directory!");
         if (!file.exists()) {
-            InputStream resource = ClassLoader.getSystemResourceAsStream(path.getFileName().toString());
+            var resource = ClassLoader.getSystemResourceAsStream(path.getFileName().toString());
             if (resource == null) throw new IllegalStateException("Default config not found in resources!");
             try {
                 Files.copy(resource, path);

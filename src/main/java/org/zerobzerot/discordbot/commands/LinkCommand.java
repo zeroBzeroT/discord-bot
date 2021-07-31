@@ -2,7 +2,6 @@ package org.zerobzerot.discordbot.commands;
 
 import cc.neckbeard.utils.UuidConverter;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 
 import java.util.UUID;
@@ -17,8 +16,8 @@ public class LinkCommand extends SlashCommand {
 
     @Override
     public void run(SlashCommandEvent event) {
-        OptionMapping uuidOption = event.getOption("uuid");
-        OptionMapping pinOption = event.getOption("pin");
+        var uuidOption = event.getOption("uuid");
+        var pinOption = event.getOption("pin");
         // Check if option is present
         if (uuidOption == null || pinOption == null) {
             // Send warning reply

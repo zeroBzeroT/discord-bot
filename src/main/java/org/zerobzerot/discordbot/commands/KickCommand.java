@@ -3,7 +3,6 @@ package org.zerobzerot.discordbot.commands;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.exceptions.HierarchyException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import org.tinylog.Logger;
@@ -18,27 +17,27 @@ public class KickCommand extends SlashCommand {
 
     @Override
     public void run(SlashCommandEvent event) {
-        OptionMapping user = event.getOption("user");
+        var userOption = event.getOption("user");
         // Check if user option is provided and user is member in server
-        if (user == null || user.getAsMember() == null) {
+        if (userOption == null || userOption.getAsMember() == null) {
             // Send warning reply
             event.reply("User not found \uD83E\uDD28").setEphemeral(false).queue();
             return;
         }
         // Set reason if option is provided
-        String message = "Kicked by an operator. - The client has been disconnected using the /kick command.";
-        final OptionMapping reason = event.getOption("reason");
+        var message = "Kicked by an operator. - The client has been disconnected using the /kick command.";
+        final var reason = event.getOption("reason");
         if (reason != null) message = reason.getAsString();
         // Send notification
         // TODO: clear user message history
         // Kick user
         final AuditableRestAction<Void> action;
         try {
-            action = user.getAsMember().kick(message);
-            event.reply("\uD83E\uDD7E Kicked " + user.getAsMember().getAsMention() + " with message: " + "\"" + message + "\"").setEphemeral(true).queue();
+            action = userOption.getAsMember().kick(message);
+            event.reply("\uD83E\uDD7E Kicked " + userOption.getAsMember().getAsMention() + " with message: " + "\"" + message + "\"").setEphemeral(true).queue();
         } catch (InsufficientPermissionException | HierarchyException | IllegalArgumentException ex) {
             Logger.warn(ex.getMessage());
-            event.reply("Unable to kick " + user.getAsMember().getAsMention() + " \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("Unable to kick " + userOption.getAsMember().getAsMention() + " \uD83E\uDD28").setEphemeral(false).queue();
             return;
         }
         action.queue();

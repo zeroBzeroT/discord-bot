@@ -12,7 +12,7 @@ public class Redis {
 
     private static Optional<String> read(String key) {
         final var config = Config.getInstance();
-        final HostAndPort host = new HostAndPort(config.redisHost, config.redisPort);
+        final var host = new HostAndPort(config.redisHost, config.redisPort);
         final Jedis jedis;
         final String value;
         try {
