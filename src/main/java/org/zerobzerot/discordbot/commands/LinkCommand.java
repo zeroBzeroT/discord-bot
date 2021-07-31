@@ -3,6 +3,7 @@ package org.zerobzerot.discordbot.commands;
 import cc.neckbeard.utils.UuidConverter;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import org.zerobzerot.discordbot.Emojis;
 
 import java.util.UUID;
 
@@ -21,18 +22,18 @@ public class LinkCommand extends SlashCommand {
         // Check if option is present
         if (uuidOption == null || pinOption == null) {
             // Send warning reply
-            event.reply("Required option not specified \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("Required option not specified " + Emojis.RAISED_EYEBROW).setEphemeral(false).queue();
             return;
         }
         final UUID uuid;
         try {
             uuid = UuidConverter.of(uuidOption.getAsString());
         } catch (IllegalArgumentException ex) {
-            event.reply("That was not a valid uuid \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("That was not a valid uuid " + Emojis.RAISED_EYEBROW).setEphemeral(false).queue();
         }
         var pin = (int) pinOption.getAsLong();
         if (pin < 1 || pin > 9999) {
-            event.reply("That was not a valid pin \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("That was not a valid pin " + Emojis.RAISED_EYEBROW).setEphemeral(false).queue();
         }
         // TODO: load oldfaggotry data from redis, if uuid found and pin is correct, set role.
     }

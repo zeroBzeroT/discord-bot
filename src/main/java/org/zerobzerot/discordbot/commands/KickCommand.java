@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import org.tinylog.Logger;
+import org.zerobzerot.discordbot.Emojis;
 
 public class KickCommand extends SlashCommand {
 
@@ -21,7 +22,7 @@ public class KickCommand extends SlashCommand {
         // Check if user option is provided and user is member in server
         if (userOption == null || userOption.getAsMember() == null) {
             // Send warning reply
-            event.reply("User not found \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("User not found " + Emojis.RAISED_EYEBROW).setEphemeral(false).queue();
             return;
         }
         // Set reason if option is provided
@@ -34,10 +35,10 @@ public class KickCommand extends SlashCommand {
         final AuditableRestAction<Void> action;
         try {
             action = userOption.getAsMember().kick(message);
-            event.reply("\uD83E\uDD7E Kicked " + userOption.getAsMember().getAsMention() + " with message: " + "\"" + message + "\"").setEphemeral(true).queue();
+            event.reply(Emojis.BOOT + " Kicked " + userOption.getAsMember().getAsMention() + " with message: " + "\"" + message + "\"").setEphemeral(true).queue();
         } catch (InsufficientPermissionException | HierarchyException | IllegalArgumentException ex) {
             Logger.warn(ex.getMessage());
-            event.reply("Unable to kick " + userOption.getAsMember().getAsMention() + " \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("Unable to kick " + userOption.getAsMember().getAsMention() + " " + Emojis.RAISED_EYEBROW).setEphemeral(false).queue();
             return;
         }
         action.queue();

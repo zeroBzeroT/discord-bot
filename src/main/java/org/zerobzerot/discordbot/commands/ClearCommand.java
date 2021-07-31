@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.tinylog.Logger;
+import org.zerobzerot.discordbot.Emojis;
 
 public class ClearCommand extends SlashCommand {
 
@@ -18,7 +19,7 @@ public class ClearCommand extends SlashCommand {
         // Check if option is present
         if (amountOption == null) {
             // Send warning reply
-            event.reply("Required option not specified \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("Required option not specified " + Emojis.RAISED_EYEBROW).setEphemeral(false).queue();
             return;
         }
         var amount = (int) amountOption.getAsLong();

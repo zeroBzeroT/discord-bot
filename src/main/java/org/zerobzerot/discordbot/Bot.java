@@ -60,7 +60,7 @@ public class Bot {
         jda.addEventListener(new CommandProcessor(jda));
 
         // set presence
-        jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.competing("\uD83E\uDD13️"));
+        jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.competing(Emojis.NERD.toString()));
 
         Logger.info(jda.getSelfUser().getName() + " (" + jda.getSelfUser().getApplicationId() + ") is ready!");
     }
