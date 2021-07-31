@@ -29,11 +29,11 @@ public class Config {
     @JsonProperty("roles-admins")
     public Set<Long> adminRoleIds;
 
-    @JsonProperty("channel-logs")
-    public long logChannelId;
-
     @JsonProperty("role-muted")
     public long mutedRoleId;
+
+    @JsonProperty("channel-logs")
+    public long logChannelId;
 
     @JsonProperty("redis-host")
     public String redisHost;

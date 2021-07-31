@@ -10,11 +10,11 @@ roles-mods:
 roles-admins:
   - 000000000000000000
 
-# channel for bot logs
-channel-logs: 000000000000000000
-
 # role to assign muted members
 role-muted: 000000000000000000
+
+# channel for bot logs
+channel-logs: 000000000000000000
 
 # redis connection infos
 redis-host: "127.0.0.1"
