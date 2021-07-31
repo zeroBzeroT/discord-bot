@@ -41,7 +41,7 @@ public class CommandProcessor extends ListenerAdapter {
         var command = commands.get(event.getName());
         if (command == null) {
             Logger.warn("Command " + event.getName() + " was invoked but was not registered!");
-            event.reply("Command " + event.getName() + " not found!").queue();
+            event.reply("Command " + event.getName() + " not found!").setEphemeral(false).queue();
         } else {
             Logger.info(
                 "Executing command " +
