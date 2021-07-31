@@ -10,15 +10,16 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Config POJO
  */
 public class Config {
 
+    private static final ReentrantLock lock = new ReentrantLock();
     private static final Path path = Path.of("config.yml");
 
-    // TODO: replace with enum singleton
     private static Config instance;
 
     @JsonProperty("token")
@@ -37,7 +38,12 @@ public class Config {
     }
 
     public static Config getInstance() {
-        if (instance != null) return instance;
+        lock.lock();
+
+        if (instance != null) {
+            lock.unlock();
+            return instance;
+        }
 
         File file = path.toFile();
         if (file.isDirectory()) throw new IllegalStateException(path + " is a directory!");
@@ -57,7 +63,9 @@ public class Config {
         } catch (IOException | UnsupportedOperationException e) {
             throw new IllegalArgumentException("Unable to load config file at " + path + " because: " + e.getMessage());
         }
+
         instance = config;
+        lock.unlock();
         return instance;
     }
 
