@@ -1,10 +1,7 @@
 package org.zerobzerot.discordbot.commands;
 
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
 import org.zerobzerot.discordbot.Config;
@@ -21,11 +18,11 @@ public abstract class SlashCommand extends CommandData {
         this.name = name;
         this.description = description;
         if (type == Type.ADMIN) {
-            setDefaultEnabled(false);
+            setDefaultEnabled(true);
             // TODO: set privileges for admin roles
             Logger.debug(Config.getInstance().adminRoleIds.stream().map(String::valueOf).collect(Collectors.joining(", ")));
         } else if (type == Type.MOD) {
-            setDefaultEnabled(false);
+            setDefaultEnabled(true);
             // TODO: set privileges for mod and admin roles
             Logger.debug(Config.getInstance().modRoleIds.stream().map(String::valueOf).collect(Collectors.joining(", ")));
         } else if (type == Type.PUBLIC) {
@@ -33,19 +30,9 @@ public abstract class SlashCommand extends CommandData {
         }
     }
 
-    static void sendReply(SlashCommandEvent event, Message reply) {
-        final ReplyAction action;
-        try {
-            action = event.reply(reply);
-        } catch (InsufficientPermissionException | UnsupportedOperationException | IllegalArgumentException ex) {
-            Logger.warn(ex.getMessage());
-            return;
-        }
-        action.queue();
-    }
-
     public void run(SlashCommandEvent event) {
         Logger.warn("Command " + event.getName() + " was invoked but logic is not yet implemented!");
+        event.reply("Command " + event.getName() + " not yet implemented!").queue();
     }
 
     public enum Type {
