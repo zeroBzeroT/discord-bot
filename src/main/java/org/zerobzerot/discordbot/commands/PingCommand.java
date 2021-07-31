@@ -21,7 +21,7 @@ public class PingCommand extends SlashCommand {
             return;
         }
         // Send reply with name
-        event.reply("\uD83D\uDC4B " + user.getAsMember().getEffectiveName()).queue();
+        event.reply("\uD83D\uDC4B " + user.getAsMember().getAsMention()).queue();
     }
 
 }

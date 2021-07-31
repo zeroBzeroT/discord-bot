@@ -26,19 +26,19 @@ public class KickCommand extends SlashCommand {
             return;
         }
         // Set reason if option is provided
-        String message = "\"Kicked by an operator. - The client has been disconnected using the /kick command.\"";
+        String message = "Kicked by an operator. - The client has been disconnected using the /kick command.";
         final OptionMapping reason = event.getOption("reason");
         if (reason != null) message = reason.getAsString();
         // Send notification
-        // TODO: clear user message history?
+        // TODO: clear user message history
         // Kick user
         final AuditableRestAction<Void> action;
         try {
             action = user.getAsMember().kick(message);
-            event.reply("\uD83E\uDD7E Kicked " + user.getName() + " with reason: " + message).setEphemeral(true).queue();
+            event.reply("\uD83E\uDD7E Kicked " + user.getAsMember().getAsMention() + " with reason: " + message).setEphemeral(true).queue();
         } catch (InsufficientPermissionException | HierarchyException | IllegalArgumentException ex) {
             Logger.warn(ex.getMessage());
-            event.reply("Unable to kick " + user.getName() + " \uD83E\uDD28").setEphemeral(false).queue();
+            event.reply("Unable to kick " + user.getAsMember().getAsMention() + " \uD83E\uDD28").setEphemeral(false).queue();
             return;
         }
         action.queue();
