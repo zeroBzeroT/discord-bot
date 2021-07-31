@@ -35,7 +35,7 @@ public class KickCommand extends SlashCommand {
         final AuditableRestAction<Void> action;
         try {
             action = user.getAsMember().kick(message);
-            event.reply("\uD83E\uDD7E Kicked " + user.getAsMember().getAsMention() + " with reason: " + message).setEphemeral(true).queue();
+            event.reply("\uD83E\uDD7E Kicked " + user.getAsMember().getAsMention() + " with message: " + "\"" + message + "\"").setEphemeral(true).queue();
         } catch (InsufficientPermissionException | HierarchyException | IllegalArgumentException ex) {
             Logger.warn(ex.getMessage());
             event.reply("Unable to kick " + user.getAsMember().getAsMention() + " \uD83E\uDD28").setEphemeral(false).queue();
