@@ -26,7 +26,6 @@ public class CommandProcessor extends ListenerAdapter {
         register(new PingCommand());
         register(new KickCommand());
         register(new ClearCommand());
-        Logger.info("Global commands can take up to 1 hour to propagate to the clients \uD83D\uDE48");
     }
 
     private void register(SlashCommand command) {
