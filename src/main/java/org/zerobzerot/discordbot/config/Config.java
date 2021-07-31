@@ -1,8 +1,8 @@
 package org.zerobzerot.discordbot.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.zerobzerot.discordbot.util.JacksonMappings;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,9 +15,13 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Config {
 
+    @JsonIgnore
     private static final ReentrantLock lock = new ReentrantLock();
+
+    @JsonIgnore
     private static final Path path = Path.of("config.yml");
 
+    @JsonIgnore
     private static Config instance;
 
     @JsonProperty("token")
@@ -66,9 +70,9 @@ public class Config {
 
         final Config config;
         try {
-            config = new ObjectMapper(new YAMLFactory()).readValue(path.toFile(), Config.class);
+            config = JacksonMappings.YAML.readValue(file, Config.class);
         } catch (IOException | UnsupportedOperationException e) {
-            throw new IllegalArgumentException("Unable to load config file at " + path + " because: " + e.getMessage());
+            throw new IllegalStateException("Unable to load config file from " + path + " because: " + e.getMessage());
         }
 
         instance = config;
