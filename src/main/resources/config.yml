@@ -1,9 +1,21 @@
+# (secrect) bot token
 token: "O00000000000000000000000.AAAAAA.000000000000000000000000000"
-channel-logs: 000000000000000000
-roles-admins:
-  - 000000000000000000
+
+# role for moderation commands
 roles-mods:
   - 000000000000000000
   - 000000000000000000
+
+# role for management stuff
+roles-admins:
+  - 000000000000000000
+
+# channel for bot logs
+channel-logs: 000000000000000000
+
+# role to assign muted members
+role-muted: 000000000000000000
+
+# redis connection infos
 redis-host: "127.0.0.1"
 redis-port: 6379
