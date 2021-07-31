@@ -34,6 +34,12 @@ public class Config {
     @JsonProperty("channel-logs")
     public long logChannelId;
 
+    @JsonProperty("redis-host")
+    public String redisHost;
+
+    @JsonProperty("redis-port")
+    public int redisPort;
+
     private Config() {
     }
 

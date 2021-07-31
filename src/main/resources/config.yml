@@ -5,3 +5,5 @@ roles-admins:
 roles-mods:
   - 000000000000000000
   - 000000000000000000
+redis-host: "127.0.0.1"
+redis-port: 6379
