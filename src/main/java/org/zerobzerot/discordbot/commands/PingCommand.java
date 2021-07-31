@@ -17,11 +17,11 @@ public class PingCommand extends SlashCommand {
         // Check if option is present
         if (user == null || user.getAsMember() == null) {
             // Send reply without name
-            event.reply("\uD83C\uDFD3").queue();
+            event.reply("\uD83C\uDFD3").setEphemeral(true).queue();
             return;
         }
         // Send reply with name
-        event.reply("\uD83D\uDC4B " + user.getAsMember().getAsMention()).queue();
+        event.reply("\uD83D\uDC4B " + user.getAsMember().getAsMention()).setEphemeral(true).queue();
     }
 
 }
