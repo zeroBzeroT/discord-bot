@@ -1,4 +1,4 @@
-package org.zerobzerot.discordbot;
+package org.zerobzerot.discordbot.util;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -56,7 +56,7 @@ public final class TimeParser {
                     value = value * 7;
                     unit = ChronoUnit.DAYS;
                 } else if (unit == ChronoUnit.MONTHS) {
-                    value = value * 28;
+                    value = value * 30;
                     unit = ChronoUnit.DAYS;
                 } else if (unit == ChronoUnit.YEARS) {
                     value = value * 356;

@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
-import org.zerobzerot.discordbot.Config;
+import org.zerobzerot.discordbot.config.Config;
 
 import java.util.stream.Collectors;
 

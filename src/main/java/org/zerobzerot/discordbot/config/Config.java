@@ -1,4 +1,4 @@
-package org.zerobzerot.discordbot;
+package org.zerobzerot.discordbot.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;

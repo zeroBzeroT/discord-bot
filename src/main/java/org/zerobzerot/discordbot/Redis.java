@@ -1,6 +1,7 @@
 package org.zerobzerot.discordbot;
 
 import org.tinylog.Logger;
+import org.zerobzerot.discordbot.config.Config;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.exceptions.JedisConnectionException;
