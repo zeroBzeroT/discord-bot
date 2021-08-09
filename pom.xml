@@ -201,7 +201,7 @@
     <dependency>
       <groupId>cc.neckbeard</groupId>
       <artifactId>java-utils</artifactId>
-      <version>1.3.0</version>
+      <version>1.4.1</version>
     </dependency>
     <!-- dev annotations -->
     <dependency>
