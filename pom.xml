@@ -159,7 +159,6 @@
           <groupId>club.minnced</groupId>
           <artifactId>opus-java</artifactId>
         </exclusion>
-        <!-- transitive depencies are old and cause convergence problems... -->
         <exclusion>
           <groupId>org.jetbrains</groupId>
           <artifactId>annotations</artifactId>
@@ -207,6 +206,12 @@
       <groupId>cc.neckbeard</groupId>
       <artifactId>java-utils</artifactId>
       <version>1.4.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- dev annotations -->
     <dependency>
