@@ -159,6 +159,11 @@
           <groupId>club.minnced</groupId>
           <artifactId>opus-java</artifactId>
         </exclusion>
+        <!-- transitive depencies are old and cause convergence problems... -->
+        <exclusion>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+        </exclusion>
         <!-- all these things are included by other dependencies in more recent versions
          TODO: shade all dependencies to their own namespace instead? -->
         <exclusion>
